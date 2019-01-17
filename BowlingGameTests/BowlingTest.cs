@@ -5,14 +5,18 @@ namespace BowlingGameTests
     [TestClass]
     public class BowlingTest
     {
+        private BowlingGame _bowlingGame = new BowlingGame();
+
         [TestMethod]
         public void RollOneBallNotGetScore()
         {
-            var game = new BowlingGame();
-            game.Roll(0);
-            var actual = game.Score();
-            var expected = 0;
-            Assert.AreEqual(expected, actual);
+            _bowlingGame.Roll(0);
+            ScoreShouldBe(0);
+        }
+
+        private void ScoreShouldBe(int expected)
+        {
+            Assert.AreEqual(expected, _bowlingGame.Score());
         }
     }
 }
