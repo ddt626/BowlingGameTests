@@ -22,7 +22,7 @@ namespace BowlingGameTests
         }
 
         [TestMethod]
-        public void FirstRound_Roll_2_6_Get_8()
+        public void Roll_2_6_Get_8()
         {
             _bowlingGame.Roll(2);
             _bowlingGame.Roll(6);
