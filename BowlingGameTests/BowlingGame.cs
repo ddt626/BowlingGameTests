@@ -16,6 +16,17 @@ namespace BowlingGameTests
         public void Roll(int hitPinNumber)
         {
             _scoreList.Add(hitPinNumber);
+            Bonus();
+            CalculateBonus(hitPinNumber);
+        }
+
+        private void Bonus()
+        {
+            if (Round >= 10)
+            {
+                return;
+            }
+
             if (IsSpare())
             {
                 AddBonus(1);
@@ -26,7 +37,6 @@ namespace BowlingGameTests
                 AddBonus(2);
                 _scoreList.Add(0);
             }
-            CalculateBonus(hitPinNumber);
         }
 
         private void AddBonus(int times)
