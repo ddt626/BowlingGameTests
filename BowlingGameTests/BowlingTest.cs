@@ -71,6 +71,16 @@ namespace BowlingGameTests
             ScoreShouldBe(30);
         }
 
+        [TestMethod]
+        public void Perfect_Game()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                _bowlingGame.Roll(10);
+            }
+            ScoreShouldBe(300);
+        }
+
         private void ScoreShouldBe(int expected)
         {
             Assert.AreEqual(expected, _bowlingGame.Score());
