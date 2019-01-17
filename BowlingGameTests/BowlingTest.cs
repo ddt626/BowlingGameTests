@@ -49,6 +49,15 @@ namespace BowlingGameTests
             ScoreShouldBe(20);
         }
 
+        [TestMethod]
+        public void Roll_10_7_2_Get_28()
+        {
+            _bowlingGame.Roll(10);
+            _bowlingGame.Roll(7);
+            _bowlingGame.Roll(2);
+            ScoreShouldBe(28);
+        }
+
         private void ScoreShouldBe(int expected)
         {
             Assert.AreEqual(expected, _bowlingGame.Score());

@@ -18,10 +18,26 @@ namespace BowlingGameTests
             _scoreList.Add(hitPinNumber);
             if (IsSpare())
             {
-                SpareBonus();
+                AddBonus(1);
             }
 
+            if (IsStrike())
+            {
+                AddBonus(2);
+                _scoreList.Add(0);
+            }
             CalculateBonus(hitPinNumber);
+        }
+
+        private void AddBonus(int times)
+        {
+            _bonusList.Add(new Bonus(Round, times));
+        }
+
+        private bool IsStrike()
+        {
+            return _scoreList.Count() % 2 == 1
+                   && _scoreList.LastOrDefault() == 10;
         }
 
         private void CalculateBonus(int hitPinNumber)
@@ -31,16 +47,6 @@ namespace BowlingGameTests
                 bonus.Times--;
                 bonus.Score += hitPinNumber;
             }
-        }
-
-        private void SpareBonus()
-        {
-            _bonusList.Add(new Bonus()
-            {
-                Round = Round,
-                Times = 1,
-                Score = 0
-            });
         }
 
         private bool IsSpare()
@@ -59,6 +65,12 @@ namespace BowlingGameTests
 
     internal class Bonus
     {
+        public Bonus(int round, int times)
+        {
+            Round = round;
+            Times = times;
+        }
+
         public int Round { get; set; }
         public int Times { get; internal set; }
         public int Score { get; internal set; }
