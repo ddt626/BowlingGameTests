@@ -8,10 +8,17 @@ namespace BowlingGameTests
         private BowlingGame _bowlingGame = new BowlingGame();
 
         [TestMethod]
-        public void RollOneBallNotGetScore()
+        public void RollOneBallHitNothing()
         {
             _bowlingGame.Roll(0);
             ScoreShouldBe(0);
+        }
+
+        [TestMethod]
+        public void RollOneBallHitTwoPin()
+        {
+            _bowlingGame.Roll(2);
+            ScoreShouldBe(2);
         }
 
         private void ScoreShouldBe(int expected)
