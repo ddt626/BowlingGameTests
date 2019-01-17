@@ -16,22 +16,37 @@ namespace BowlingGameTests
         public void Roll(int hitPinNumber)
         {
             _scoreList.Add(hitPinNumber);
-            if (_scoreList.Count() % 2 == 0
-                && _scoreList.LastOrDefault() + _scoreList.ElementAt(_scoreList.Count() - 2) == 10)
+            if (IsSpare())
             {
-                _bonusList.Add(new Bonus()
-                {
-                    Round = Round,
-                    Times = 1,
-                    Score = 0
-                });
+                SpareBonus();
             }
 
+            CalculateBonus(hitPinNumber);
+        }
+
+        private void CalculateBonus(int hitPinNumber)
+        {
             foreach (var bonus in _bonusList.Where(a => a.Round != Round && a.Times > 0))
             {
                 bonus.Times--;
                 bonus.Score += hitPinNumber;
             }
+        }
+
+        private void SpareBonus()
+        {
+            _bonusList.Add(new Bonus()
+            {
+                Round = Round,
+                Times = 1,
+                Score = 0
+            });
+        }
+
+        private bool IsSpare()
+        {
+            return _scoreList.Count() % 2 == 0
+                   && _scoreList.LastOrDefault() + _scoreList.ElementAt(_scoreList.Count() - 2) == 10;
         }
 
         private int Round => (int)Math.Ceiling((_scoreList.Count() / 2m));
