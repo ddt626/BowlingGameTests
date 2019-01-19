@@ -32,10 +32,7 @@ namespace BowlingGameTests
         [TestMethod]
         public void Every_Roll_Hit_1_Get_20()
         {
-            for (int i = 0; i < 20; i++)
-            {
-                _bowlingGame.Roll(1);
-            }
+            RollMany(20, 1);
             ScoreShouldBe(20);
         }
 
@@ -61,14 +58,19 @@ namespace BowlingGameTests
         [TestMethod]
         public void Roll_18_times_0_and_final_10_10_10_Get_30()
         {
-            for (int i = 0; i < 18; i++)
-            {
-                _bowlingGame.Roll(0);
-            }
+            RollMany(18, 0);
             _bowlingGame.Roll(10);
             _bowlingGame.Roll(10);
             _bowlingGame.Roll(10);
             ScoreShouldBe(30);
+        }
+
+        private void RollMany(int times, int pins)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                _bowlingGame.Roll(pins);
+            }
         }
 
         [TestMethod]
@@ -79,6 +81,26 @@ namespace BowlingGameTests
                 _bowlingGame.Roll(10);
             }
             ScoreShouldBe(300);
+        }
+
+        [TestMethod]
+        public void GameTest()
+        {
+            var game = new Game();
+            for (int i = 0; i < 18; i++)
+            {
+                game.roll(0);
+            }
+
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    game.roll(10);
+            //}
+            game.roll(3);
+            game.roll(7);
+            game.roll(10);
+
+            Assert.AreEqual(20, game.score());
         }
 
         private void ScoreShouldBe(int expected)
